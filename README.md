@@ -1,5 +1,16 @@
 # Keatten
 
+Keatten est un projet né mercredi 29 mai à minuit passé,
+
+Mon Chat est en surpoid, sauvons le, développons Keatten.
+
+Keatten est une application web simplissime, vous donnez à manger au chat,
+vous le signalez.
+
+Gestion des croquettes et de la santé du chat.
+
+Merci Léonard.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
 ## Development server
