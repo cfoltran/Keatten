@@ -1,0 +1,7 @@
+body {background-color: rgba(80, 80, 80, 0.5);}
+
+#home {
+    margin: auto;
+    width: 80%;
+    height: 100%;
+}
