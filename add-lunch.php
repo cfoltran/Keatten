@@ -16,7 +16,8 @@
     $data = json_decode($json, true);
     $last_ts = $data[sizeof(data) - 1]['ts'];
 
-    if (($last_ts + 86400) < time() && $_SERVER['SERVER_ADDR'] == $_SERVER['REMOTE_ADDR']) {
+    $ip = explode('.', $_SERVER['REMOTE_ADDR']);
+    if (($last_ts + 86400 < time()) && $ip[0] == '192' && $ip[1] == '168' && $ip[2] == 0) {
         $data[] = [
             'id' => sizeof($data),
             'name' => $name,
@@ -29,16 +30,16 @@
         fclose($fd);
         $error = 1;
     } else {
-        if ($_SERVER['SERVER_ADDR'] != $_SERVER['REMOTE_ADDR']) {
-            $error = 3;
-        } else {
-            $error = 2;
-        }
+	if ($ip[0] != '192' || $ip[1] != '168' || $ip[2] != '0') {
+	  $error = 3;
+	} else {
+	  $error = 2;
+	}
     }
 ?>
     <?php if ($error === 1): ?>
         <div class="alert alert-success" role="alert">
-            Merci, bom appétit !
+            Miaou, bon appétit !
         </div>
     <?php endif; ?>
     <?php if ($error === 2): ?>
