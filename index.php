@@ -2,6 +2,8 @@
     // Resolve datas from JSON file
     $json = file_get_contents("data.json");
     $datas = json_decode($json, true);
+	$lunchs = $datas['lunchs'];
+	$stock_ratio = round($datas['stocks'] * 100 / 4);
 ?>
 
 <!DOCTYPE html>
@@ -39,17 +41,20 @@
             </div>
             <div class="form-group">
                 <div class="input-group mb-3">
+				  <div class="input-group-prepend">
+				      <span class="input-group-text" id="basic-addon3">J'ai donnee</span>
+				  </div>
                     <input type="text" class="form-control" name="gr" value="50">
                     <div class="input-group-append">
                     <span class="input-group-text">Grammes de croquettes</span>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary">Submit</button>
+            <button class="btn btn-primary btn-lg btn-block">Submit</button>
         </form>
-        <h3 class="text-center p-3">Stock de croquettes</h3>
+        <h3 class="text-center p-3"><?php echo $datas['stocks'] ?> kg de croquettes en stock</h3>
         <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar" role="progressbar" style="width: <?= $stock_ratio  ?>%" aria-valuenow="<?= $stock_ratio?>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <h3 class="text-center p-3">Historique</h3>
         <table class="table">
@@ -62,13 +67,13 @@
             </tr>
             </thead>
             <tbody>
-            <?php if (isset($datas)): ?>
-                <?php foreach ($datas as $data): ?>  
+            <?php if (isset($lunchs)): ?>
+                <?php foreach ($lunchs as $lunch): ?>  
                     <tr>
-                        <th scope="row"><?= $data['id'] ?></th>
-                        <td><?= $data['name'] ?></td>
-                        <td><?= $data['gr'] ?></td>
-                        <td><?= $data['date'] ?></td>
+                        <th scope="row"><?= $lunch['id'] ?></th>
+                        <td><?= $lunch['name'] ?></td>
+                        <td><?= $lunch['gr'] ?></td>
+                        <td><?= $lunch['date'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -77,3 +82,9 @@
     </div>
 </body>
 </html>
+<script>
+	const stock = parseInt(document.getElementsByClassName('progress-bar')[0].style.width);
+	if (stock < 10) {
+		document.getElementsByClassName('progress-bar')[0].style.backgroundColor = 'rgb(202,68,74)';	
+	}
+</script>

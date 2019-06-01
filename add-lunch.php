@@ -17,14 +17,15 @@
     $last_ts = $data[sizeof(data) - 1]['ts'];
 
     $ip = explode('.', $_SERVER['REMOTE_ADDR']);
-    if (($last_ts + 86400 < time()) && $ip[0] == '192' && $ip[1] == '168' && $ip[2] == 0) {
-        $data[] = [
-            'id' => sizeof($data),
+    if (($last_ts + 34200 < time()) && $ip[0] == '192' && $ip[1] == '168' && $ip[2] == 0) {
+        $data['lunchs'][] = [
+            'id' => sizeof($data['lunchs']),
             'name' => $name,
             'gr' => $gr,
             'date' => $date->format('d-m-Y'),
             'ts' => time()
         ];
+		$data['stocks'] -= $gr / 1000;
         $fd = fopen('data.json', 'w');
         fwrite($fd, json_encode($data));
         fclose($fd);
